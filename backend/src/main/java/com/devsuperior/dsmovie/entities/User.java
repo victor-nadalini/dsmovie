@@ -15,7 +15,7 @@ public class User {
 	private Long id;
 	private String email; 
 	
-	public User( ) {
+	public User() {
 		
 	}
 
