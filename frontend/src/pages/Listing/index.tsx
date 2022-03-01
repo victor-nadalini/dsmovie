@@ -7,7 +7,7 @@ import { BASE_URL } from "utils/requests";
 
 function Listing (){
 
-   const[pageNumber, setPageNumber] = useState(0);
+   const[pageNumber] = useState(0);
 
    const[page,setPage] = useState<MoviePage>({
       content: [],
@@ -25,6 +25,7 @@ function Listing (){
      axios.get(`${BASE_URL}/movies?size=12&page=${pageNumber}&sort=id`)
      .then(resposta =>{
         const data = resposta.data as MoviePage;
+        setPage(data)
      });
   }, [pageNumber]);
     return(
