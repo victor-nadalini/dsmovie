@@ -1,15 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import MovieCard from "components/MovieCard";
 import Pagination from "components/Pagination";
-import { BASE_URL } from "utils/requests";
+import { useEffect, useState } from "react";
 import { MoviePage } from "types/movie";
+import { BASE_URL } from "utils/requests";
 
-function Listing() {
+function Listing (){
 
-   const [pageNumber, setPageNumber] = useState<MoviePage>(0);
+   const[pageNumber, setPageNumber] = useState(0);
 
-   const [page, setPage] = useState({
+   const[page,setPage] = useState<MoviePage>({
       content: [],
       last: true,
       totalPages: 0,
@@ -19,32 +19,32 @@ function Listing() {
       first: true,
       numberOfElements: 0,
       empty: true
-   })
+  });
 
-   useEffect(() => {
-      axios.get(`${BASE_URL}/movies?size=12&page=${pageNumber}&sort=id`)
-         .then(resposta => {
-            const data = resposta.data as MoviePage;
-            setPage(data);
-         });
-   }, [pageNumber]);
+  useEffect(() => {
+     axios.get(`${BASE_URL}/movies?size=12&page=${pageNumber}&sort=id`)
+     .then(resposta =>{
+        const data = resposta.data as MoviePage;
+     });
+  }, [pageNumber]);
+    return(
+        <>
+        <Pagination />
+        <div className="conteiner">
+          <div className="row">
 
-   return (
-      <>
-         <Pagination />
-
-         <div className="conteiner">
-            <div className="row">
-               {page.content.map(movie => (
+             {page.content.map (movie => (
                   <div key={movie.id} className="col-sm-5 col-lg-4 col-xl-3 mb-3">
-                     <MovieCard movie={movie} />
-                  </div>
-               )
-               )}
-            </div>
-         </div>
-      </>
-   );
+                  <MovieCard movie ={movie} />
+               </div>
+                )
+             )}
+
+
+        </div>
+    </div>
+        </>
+    );
 
 
 }
