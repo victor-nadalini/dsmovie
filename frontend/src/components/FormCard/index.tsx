@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Movie } from 'types/movie';
+import {validateEmail} from 'utils/validate'
 import { BASE_URL } from 'utils/requests';
 import './styles.css';
 
@@ -26,6 +27,10 @@ const FormCard = ({ movieId }: Props) => {
 
     const email = (event.target as any).email.value;
     const score = (event.target as any).score.value;
+
+    if (!validateEmail(email)){
+        return;
+    }
 
     const config: AxiosRequestConfig = {
       baseURL: BASE_URL,
